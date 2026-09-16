@@ -9,14 +9,8 @@
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   :root{
-    --navy:#0b1f3a;
-    --navy2:#122c52;
-    --gold:#d4af37;
-    --gold2:#f0c94a;
-    --muted:#64748b;
-    --line:#e2e8f0;
-    --ok:#16a34a;
-    --danger:#dc2626;
+    --navy:#0b1f3a; --navy2:#122c52; --gold:#d4af37; --gold2:#f0c94a;
+    --muted:#64748b; --line:#e2e8f0; --ok:#16a34a; --danger:#dc2626;
   }
   body{
     font-family:'Tajawal',system-ui,sans-serif;
@@ -24,28 +18,18 @@
       radial-gradient(1000px 500px at 90% -10%, #1e3a6d 0%, transparent 60%),
       radial-gradient(800px 400px at 0% 110%, #17325c 0%, transparent 55%),
       linear-gradient(160deg,#08152a,#0f2547);
-    min-height:100vh;
-    color:#0f172a;
+    min-height:100vh; color:#0f172a;
     display:flex;align-items:center;justify-content:center;
-    padding:24px 16px 60px;
-    position:relative;
+    padding:24px 16px 60px; position:relative;
   }
-
-  /* ====== البطاقة الرئيسية ====== */
   .app{
-    width:100%;max-width:780px;
-    background:#fff;
-    border-radius:26px;
+    width:100%;max-width:820px;background:#fff;border-radius:26px;
     box-shadow:0 30px 80px rgba(0,0,0,.45), 0 0 0 1px rgba(212,175,55,.25);
-    overflow:hidden;
-    position:relative;
+    overflow:hidden;position:relative;
   }
   .app-head{
     background:linear-gradient(135deg,var(--navy),var(--navy2));
-    padding:26px 28px 22px;
-    color:#fff;
-    position:relative;
-    overflow:hidden;
+    padding:26px 28px 22px;color:#fff;position:relative;overflow:hidden;
   }
   .app-head::after{
     content:"";position:absolute;inset:0;
@@ -65,11 +49,9 @@
   .progress-wrap{padding:18px 28px 0;background:#fff}
   .progress-top{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);font-weight:700;margin-bottom:8px}
   .progress-bar{height:7px;background:#eef2f7;border-radius:99px;overflow:hidden}
-  .progress-fill{height:100%;width:16%;border-radius:99px;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width .35s ease}
+  .progress-fill{height:100%;width:14%;border-radius:99px;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width .35s ease}
 
   .body{padding:22px 28px 28px}
-
-  /* ====== الخطوات ====== */
   .step{display:none;animation:fade .35s ease}
   .step.active{display:block}
   @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -77,20 +59,68 @@
   .q-title{font-size:20px;font-weight:800;color:var(--navy);margin-bottom:6px}
   .q-sub{font-size:13.5px;color:var(--muted);margin-bottom:18px}
 
-  /* اختيار نوع العقار */
+  /* ====== بطاقات العقارات ====== */
   .type-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-  @media(min-width:620px){.type-grid{grid-template-columns:repeat(3,1fr)}}
+  @media(min-width:640px){.type-grid{grid-template-columns:repeat(3,1fr)}}
+
   .type-card{
     border:2px solid var(--line);border-radius:16px;
-    padding:16px 12px;text-align:center;cursor:pointer;
-    transition:.2s;background:#fff;
+    cursor:pointer;transition:.25s;background:#fff;overflow:hidden;
+    position:relative;
   }
-  .type-card:hover{border-color:#c9d4e2;transform:translateY(-2px);box-shadow:0 8px 18px rgba(11,31,58,.08)}
-  .type-card.sel{border-color:var(--gold);background:linear-gradient(180deg,#fffdf5,#fff8e6);box-shadow:0 8px 22px rgba(212,175,55,.22)}
-  .type-card .emoji{font-size:30px;display:block;margin-bottom:8px}
-  .type-card .lbl{font-size:14.5px;font-weight:700;color:var(--navy)}
+  .type-card:hover{
+    border-color:#c9d4e2;transform:translateY(-2px);
+    box-shadow:0 10px 22px rgba(11,31,58,.10);
+  }
+  .type-card.sel{
+    border-color:var(--gold);
+    box-shadow:0 8px 22px rgba(212,175,55,.25);
+  }
+  .type-card.sel::after{
+    content:"✓";position:absolute;top:6px;left:6px;
+    width:20px;height:20px;border-radius:50%;
+    background:linear-gradient(135deg,var(--gold),var(--gold2));
+    color:#3a2c00;font-weight:900;font-size:12px;
+    display:grid;place-items:center;
+    box-shadow:0 3px 8px rgba(212,175,55,.5);
+  }
 
-  /* العدادات */
+  /* الصور صغيرة وأنظف */
+  .type-card .ill{
+    width:100%;height:74px;display:block;
+    background:linear-gradient(180deg,#e6f1fb,#f8fbff);
+  }
+  .type-card .lbl{
+    display:block;text-align:center;
+    font-size:13.5px;font-weight:800;color:var(--navy);
+    padding:9px 6px 11px;letter-spacing:.2px;
+    border-top:1px solid #f1f5f9;
+    background:#fff;
+  }
+
+  /* ====== خيارات المساحة ====== */
+  .area-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .area-opt{position:relative;cursor:pointer;user-select:none}
+  .area-opt input{position:absolute;opacity:0;pointer-events:none}
+  .area-opt .opt-box{
+    display:block;padding:24px 12px;text-align:center;
+    border:2px solid var(--line);border-radius:16px;
+    font-weight:800;color:var(--navy);font-size:16px;
+    background:#fbfcfe;transition:.2s;
+  }
+  .area-opt .opt-box small{
+    display:block;font-size:11.5px;color:var(--muted);
+    font-weight:700;margin-top:5px;
+  }
+  .area-opt input:checked + .opt-box{
+    border-color:var(--gold);
+    background:linear-gradient(180deg,#fffdf5,#fff8e6);
+    box-shadow:0 8px 20px rgba(212,175,55,.22);
+    color:var(--navy);
+  }
+  .area-opt .opt-box:hover{border-color:#c9d4e2}
+
+  /* ====== العدادات ====== */
   .counter-row{
     display:flex;align-items:center;justify-content:space-between;
     padding:14px 16px;border:1.5px solid var(--line);border-radius:14px;margin-bottom:12px;
@@ -107,7 +137,6 @@
   .stepper button:disabled{opacity:.35;cursor:not-allowed;background:#fff;color:var(--navy);border-color:var(--line)}
   .stepper .val{min-width:34px;text-align:center;font-weight:800;font-size:18px;color:var(--navy)}
 
-  /* حقول */
   select,input[type=text],input[type=tel]{
     width:100%;padding:14px 16px;border:1.5px solid var(--line);border-radius:14px;
     font-family:inherit;font-size:15.5px;background:#fbfcfe;color:var(--navy);
@@ -116,7 +145,6 @@
   select:focus,input:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 4px rgba(212,175,55,.15)}
   input[type=tel]{direction:ltr;text-align:right;letter-spacing:1px}
 
-  /* الأحياء */
   .districts-head{display:flex;justify-content:space-between;align-items:center;margin:14px 0 10px}
   .districts-head .lbl{font-size:13px;color:var(--muted);font-weight:700}
   .mini-btn{
@@ -142,10 +170,9 @@
 
   .empty-note{
     padding:26px;text-align:center;color:var(--muted);font-size:14px;
-    border:1.5px dashed var(--line);border-radius:14px;background:#fbfcfe;
+    border:1.5px dashed var(--line);border-radius:14px;background:#fbfcfe;width:100%;
   }
 
-  /* زر المتابعة */
   .nav{display:flex;gap:12px;margin-top:24px}
   .btn{
     flex:1;padding:15px;border:none;border-radius:14px;font-family:inherit;
@@ -153,14 +180,12 @@
   }
   .btn-primary{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;box-shadow:0 10px 24px rgba(11,31,58,.28)}
   .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(11,31,58,.35)}
-  .btn-primary:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
   .btn-ghost{background:#f1f5f9;color:var(--navy);flex:0 0 120px}
   .btn-ghost:hover{background:#e2e8f0}
 
   .err{color:var(--danger);font-size:13px;font-weight:700;margin-top:10px;display:none}
   .err.show{display:block}
 
-  /* شاشة الشكر */
   .thanks{text-align:center;padding:26px 10px 10px}
   .thanks .tick{
     width:92px;height:92px;border-radius:50%;margin:0 auto 20px;
@@ -180,7 +205,6 @@
   .summary div:last-child{border-bottom:none}
   .summary b{color:var(--navy)}
 
-  /* ====== النجمة المخفية ====== */
   .secret-star{
     position:fixed;bottom:10px;left:50%;transform:translateX(-50%);
     font-size:22px;color:var(--gold);opacity:.16;cursor:pointer;
@@ -189,7 +213,6 @@
   }
   .secret-star:hover{opacity:.85;transform:translateX(-50%) scale(1.25) rotate(72deg)}
 
-  /* ====== المودالات ====== */
   .overlay{
     position:fixed;inset:0;background:rgba(6,15,29,.78);backdrop-filter:blur(6px);
     display:none;align-items:center;justify-content:center;padding:18px;z-index:100;
@@ -205,7 +228,6 @@
   .field{margin-bottom:14px}
   .field label{display:block;font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px}
 
-  /* لوحة الإدارة */
   .admin-modal{max-width:820px}
   .admin-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px}
   .admin-top h3{margin:0;text-align:right}
@@ -238,7 +260,6 @@
 </head>
 <body>
 
-<!-- ================= المنصة ================= -->
 <div class="app" id="app">
   <div class="app-head">
     <div class="brand">
@@ -252,30 +273,281 @@
 
   <div class="progress-wrap" id="progressWrap">
     <div class="progress-top">
-      <span id="stepLabel">الخطوة 1 من 6</span>
-      <span id="stepPct">17%</span>
+      <span id="stepLabel">الخطوة 1 من 7</span>
+      <span id="stepPct">14%</span>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   </div>
 
   <div class="body">
 
-    <!-- ===== خطوة 1: نوع العقار ===== -->
+    <!-- ===== 1: نوع العقار ===== -->
     <section class="step active" data-step="1">
       <div class="q-title">ما نوع العقار الذي تبحث عنه؟</div>
       <div class="q-sub">اختر نوع العقار المطلوب</div>
+
       <div class="type-grid" id="typeGrid">
-        <div class="type-card" data-val="شقة"><span class="emoji">🏢</span><span class="lbl">شقة</span></div>
-        <div class="type-card" data-val="فيلا"><span class="emoji">🏡</span><span class="lbl">فيلا</span></div>
-        <div class="type-card" data-val="أرض"><span class="emoji">🌍</span><span class="lbl">أرض</span></div>
-        <div class="type-card" data-val="عمارة تجارية"><span class="emoji">🏬</span><span class="lbl">عمارة تجارية</span></div>
-        <div class="type-card" data-val="أرض تجارية"><span class="emoji">📐</span><span class="lbl">أرض تجارية</span></div>
+
+        <!-- شقة -->
+        <div class="type-card" data-val="شقة">
+          <svg class="ill" viewBox="0 0 100 70" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <linearGradient id="skyA" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#cfe4fb"/><stop offset="100%" stop-color="#eef6ff"/>
+              </linearGradient>
+            </defs>
+            <rect width="100" height="70" fill="url(#skyA)"/>
+            <circle cx="82" cy="14" r="5" fill="#fcd34d" opacity="0.85"/>
+            <rect x="0" y="56" width="100" height="14" fill="#dce4ee"/>
+            <!-- مبنى سكني نحيف -->
+            <rect x="38" y="22" width="24" height="34" fill="#f1f5f9" stroke="#b8c4d3" stroke-width="0.4"/>
+            <rect x="38" y="22" width="24" height="2.5" fill="#64748b"/>
+            <g fill="#7dd3fc">
+              <rect x="41" y="27" width="4" height="4"/>
+              <rect x="48" y="27" width="4" height="4"/>
+              <rect x="55" y="27" width="4" height="4"/>
+              <rect x="41" y="34" width="4" height="4"/>
+              <rect x="48" y="34" width="4" height="4"/>
+              <rect x="55" y="34" width="4" height="4"/>
+              <rect x="41" y="41" width="4" height="4"/>
+              <rect x="55" y="41" width="4" height="4"/>
+            </g>
+            <rect x="48" y="41" width="4" height="15" fill="#475569"/>
+            <!-- مبنى جانبي صغير -->
+            <rect x="66" y="36" width="12" height="20" fill="#e2e8f0" stroke="#b8c4d3" stroke-width="0.4"/>
+            <rect x="68" y="39" width="3" height="3" fill="#7dd3fc"/>
+            <rect x="73" y="39" width="3" height="3" fill="#7dd3fc"/>
+            <rect x="68" y="45" width="3" height="3" fill="#7dd3fc"/>
+            <rect x="73" y="45" width="3" height="3" fill="#7dd3fc"/>
+            <!-- شجرة -->
+            <rect x="22" y="44" width="1.2" height="12" fill="#78350f"/>
+            <circle cx="23" cy="42" r="4.5" fill="#34d399"/>
+            <circle cx="20" cy="44" r="3" fill="#10b981"/>
+            <circle cx="26" cy="44" r="3" fill="#10b981"/>
+          </svg>
+          <span class="lbl">شقة</span>
+        </div>
+
+        <!-- فيلا -->
+        <div class="type-card" data-val="فيلا">
+          <svg class="ill" viewBox="0 0 100 70" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <linearGradient id="skyB" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#cfe4fb"/><stop offset="100%" stop-color="#eef6ff"/>
+              </linearGradient>
+            </defs>
+            <rect width="100" height="70" fill="url(#skyB)"/>
+            <circle cx="16" cy="13" r="5" fill="#fcd34d"/>
+            <rect x="0" y="52" width="100" height="18" fill="#a7d99a"/>
+            <rect x="0" y="52" width="100" height="0.6" fill="#7ab86a"/>
+            <!-- فيلا -->
+            <rect x="34" y="34" width="32" height="18" fill="#fef3c7" stroke="#d4b87a" stroke-width="0.4"/>
+            <rect x="34" y="34" width="32" height="1.5" fill="#e8d29b"/>
+            <polygon points="31,34 50,22 69,34" fill="#a16207"/>
+            <polygon points="31,34 50,22 50,34" fill="#854d0e"/>
+            <rect x="47" y="42" width="5" height="10" fill="#78350f"/>
+            <circle cx="51" cy="47" r="0.5" fill="#fbbf24"/>
+            <rect x="38" y="39" width="5" height="5" fill="#7dd3fc" stroke="#fff" stroke-width="0.3"/>
+            <rect x="57" y="39" width="5" height="5" fill="#7dd3fc" stroke="#fff" stroke-width="0.3"/>
+            <!-- نخلة -->
+            <path d="M80 52 Q80 44 78 40" stroke="#78350f" stroke-width="1.2" fill="none"/>
+            <ellipse cx="78" cy="38" rx="6" ry="2" fill="#22c55e"/>
+            <ellipse cx="73" cy="40" rx="5" ry="1.8" fill="#16a34a"/>
+            <ellipse cx="83" cy="40" rx="5" ry="1.8" fill="#16a34a"/>
+            <ellipse cx="78" cy="36" rx="4" ry="1.5" fill="#4ade80"/>
+            <!-- شجيرات -->
+            <circle cx="20" cy="52" r="3.5" fill="#22c55e"/>
+            <circle cx="16" cy="53" r="2.5" fill="#16a34a"/>
+            <circle cx="24" cy="53" r="2.5" fill="#16a34a"/>
+          </svg>
+          <span class="lbl">فيلا</span>
+        </div>
+
+        <!-- أرض -->
+        <div class="type-card" data-val="أرض">
+          <svg class="ill" viewBox="0 0 100 70" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <linearGradient id="skyC" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#cfe4fb"/><stop offset="100%" stop-color="#eef6ff"/>
+              </linearGradient>
+              <linearGradient id="earthC" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#e8d2ab"/><stop offset="100%" stop-color="#c9a670"/>
+              </linearGradient>
+            </defs>
+            <rect width="100" height="70" fill="url(#skyC)"/>
+            <circle cx="82" cy="14" r="5.5" fill="#fcd34d"/>
+            <rect x="0" y="40" width="100" height="30" fill="url(#earthC)"/>
+            <line x1="0" y1="40" x2="100" y2="40" stroke="#b08d55" stroke-width="0.6"/>
+            <rect x="12" y="32" width="1.5" height="12" fill="#78350f"/>
+            <rect x="38" y="32" width="1.5" height="12" fill="#78350f"/>
+            <rect x="64" y="32" width="1.5" height="12" fill="#78350f"/>
+            <rect x="88" y="32" width="1.5" height="12" fill="#78350f"/>
+            <line x1="12" y1="36" x2="89" y2="36" stroke="#78350f" stroke-width="0.5"/>
+            <line x1="12" y1="40" x2="89" y2="40" stroke="#78350f" stroke-width="0.5"/>
+            <circle cx="28" cy="50" r="0.8" fill="#8b5e34"/>
+            <circle cx="52" cy="56" r="0.8" fill="#8b5e34"/>
+            <circle cx="72" cy="48" r="0.8" fill="#8b5e34"/>
+            <circle cx="40" cy="60" r="0.8" fill="#8b5e34"/>
+            <circle cx="82" cy="60" r="0.8" fill="#8b5e34"/>
+          </svg>
+          <span class="lbl">أرض</span>
+        </div>
+
+        <!-- عمارة تجارية -->
+        <div class="type-card" data-val="عمارة تجارية">
+          <svg class="ill" viewBox="0 0 100 70" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <linearGradient id="skyD" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#cfe4fb"/><stop offset="100%" stop-color="#eef6ff"/>
+              </linearGradient>
+            </defs>
+            <rect width="100" height="70" fill="url(#skyD)"/>
+            <circle cx="86" cy="12" r="5" fill="#fcd34d" opacity="0.8"/>
+            <rect x="0" y="58" width="100" height="12" fill="#dce4ee"/>
+            <!-- المبنى -->
+            <rect x="26" y="20" width="48" height="38" fill="#e2e8f0" stroke="#b8c4d3" stroke-width="0.4"/>
+            <rect x="26" y="20" width="48" height="2.5" fill="#64748b"/>
+            <rect x="30" y="25" width="40" height="8" fill="#7dd3fc" opacity="0.85"/>
+            <line x1="30" y1="29" x2="70" y2="29" stroke="#fff" stroke-width="0.3"/>
+            <line x1="40" y1="25" x2="40" y2="33" stroke="#fff" stroke-width="0.3"/>
+            <line x1="50" y1="25" x2="50" y2="33" stroke="#fff" stroke-width="0.3"/>
+            <line x1="60" y1="25" x2="60" y2="33" stroke="#fff" stroke-width="0.3"/>
+            <rect x="36" y="36" width="28" height="4" fill="#dc2626" rx="0.5"/>
+            <text x="50" y="39.2" font-size="2.8" text-anchor="middle" fill="#fff" font-weight="bold">للتأجير</text>
+            <rect x="30" y="44" width="16" height="14" fill="#1e293b"/>
+            <rect x="54" y="44" width="16" height="14" fill="#1e293b"/>
+            <rect x="32" y="46" width="12" height="9" fill="#fef3c7" opacity="0.4"/>
+            <rect x="56" y="46" width="12" height="9" fill="#fef3c7" opacity="0.4"/>
+            <path d="M28 44 L72 44 L68 40 L32 40 Z" fill="#dc2626"/>
+            <!-- مبنى جانبي -->
+            <rect x="78" y="38" width="12" height="20" fill="#cbd5e1" stroke="#94a3b8" stroke-width="0.3"/>
+            <rect x="80" y="41" width="3" height="3" fill="#7dd3fc"/>
+            <rect x="85" y="41" width="3" height="3" fill="#7dd3fc"/>
+            <rect x="80" y="47" width="3" height="3" fill="#7dd3fc"/>
+            <rect x="85" y="47" width="3" height="3" fill="#7dd3fc"/>
+          </svg>
+          <span class="lbl">عمارة تجارية</span>
+        </div>
+
+        <!-- أرض تجارية -->
+        <div class="type-card" data-val="أرض تجارية">
+          <svg class="ill" viewBox="0 0 100 70" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <linearGradient id="skyE" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#cfe4fb"/><stop offset="100%" stop-color="#eef6ff"/>
+              </linearGradient>
+              <linearGradient id="plotE" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#ecd9b5"/><stop offset="100%" stop-color="#d2b483"/>
+              </linearGradient>
+            </defs>
+            <rect width="100" height="70" fill="url(#skyE)"/>
+            <circle cx="14" cy="13" r="5" fill="#fcd34d"/>
+            <!-- مبانٍ بعيدة -->
+            <rect x="72" y="30" width="10" height="14" fill="#cbd5e1"/>
+            <rect x="84" y="33" width="8" height="11" fill="#d6dde6"/>
+            <rect x="74" y="33" width="2.5" height="2.5" fill="#fbbf24"/>
+            <rect x="79" y="33" width="2.5" height="2.5" fill="#93c5fd"/>
+            <rect x="86" y="36" width="2.5" height="2.5" fill="#93c5fd"/>
+            <!-- الأرض -->
+            <rect x="0" y="44" width="100" height="26" fill="url(#plotE)"/>
+            <line x1="0" y1="44" x2="100" y2="44" stroke="#b08d55" stroke-width="0.5"/>
+            <!-- الشارع -->
+            <rect x="0" y="60" width="100" height="10" fill="#94a3b8"/>
+            <line x1="6" y1="65" x2="16" y2="65" stroke="#fef3c7" stroke-width="1"/>
+            <line x1="26" y1="65" x2="36" y2="65" stroke="#fef3c7" stroke-width="1"/>
+            <line x1="46" y1="65" x2="56" y2="65" stroke="#fef3c7" stroke-width="1"/>
+            <line x1="66" y1="65" x2="76" y2="65" stroke="#fef3c7" stroke-width="1"/>
+            <line x1="86" y1="65" x2="96" y2="65" stroke="#fef3c7" stroke-width="1"/>
+            <!-- أعمدة تحديد -->
+            <rect x="18" y="36" width="1.8" height="10" fill="#dc2626"/>
+            <rect x="66" y="36" width="1.8" height="10" fill="#dc2626"/>
+            <line x1="18.9" y1="38" x2="66.9" y2="38" stroke="#dc2626" stroke-width="0.4" stroke-dasharray="1.5 1.5"/>
+            <!-- لوحة تجاري -->
+            <rect x="38" y="26" width="24" height="14" fill="#fff" stroke="#dc2626" stroke-width="1.2" rx="0.8"/>
+            <text x="50" y="35.5" font-size="5" text-anchor="middle" fill="#dc2626" font-weight="bold">تجاري</text>
+            <rect x="49" y="40" width="1.8" height="6" fill="#78350f"/>
+            <circle cx="32" cy="52" r="0.7" fill="#8b5e34"/>
+            <circle cx="52" cy="56" r="0.7" fill="#8b5e34"/>
+            <circle cx="22" cy="56" r="0.7" fill="#8b5e34"/>
+          </svg>
+          <span class="lbl">أرض تجارية</span>
+        </div>
+
+        <!-- مزرعة -->
+        <div class="type-card" data-val="مزرعة">
+          <svg class="ill" viewBox="0 0 100 70" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <linearGradient id="skyF" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#c7e5fc"/><stop offset="100%" stop-color="#e8f4ff"/>
+              </linearGradient>
+              <linearGradient id="fieldF" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#84cc16"/><stop offset="100%" stop-color="#65a30d"/>
+              </linearGradient>
+            </defs>
+            <rect width="100" height="70" fill="url(#skyF)"/>
+            <circle cx="82" cy="13" r="6" fill="#fcd34d"/>
+            <ellipse cx="22" cy="14" rx="10" ry="3" fill="#fff" opacity="0.85"/>
+            <ellipse cx="29" cy="12" rx="6.5" ry="2.5" fill="#fff" opacity="0.85"/>
+            <rect x="0" y="42" width="100" height="28" fill="url(#fieldF)"/>
+            <line x1="2" y1="46" x2="98" y2="46" stroke="#4d7c0f" stroke-width="0.7"/>
+            <line x1="2" y1="51" x2="98" y2="51" stroke="#4d7c0f" stroke-width="0.7"/>
+            <line x1="2" y1="56" x2="98" y2="56" stroke="#4d7c0f" stroke-width="0.7"/>
+            <line x1="2" y1="61" x2="98" y2="61" stroke="#4d7c0f" stroke-width="0.7"/>
+            <line x1="2" y1="66" x2="98" y2="66" stroke="#4d7c0f" stroke-width="0.7"/>
+            <!-- مخزن -->
+            <rect x="16" y="30" width="22" height="12" fill="#dc2626"/>
+            <polygon points="14,30 27,20 40,30" fill="#7f1d1d"/>
+            <rect x="24" y="36" width="7" height="6" fill="#7f1d1d"/>
+            <line x1="27.5" y1="36" x2="27.5" y2="42" stroke="#450a0a" stroke-width="0.3"/>
+            <!-- نخلة -->
+            <rect x="56" y="34" width="2" height="10" fill="#78350f"/>
+            <ellipse cx="57" cy="32" rx="7" ry="3" fill="#15803d"/>
+            <ellipse cx="52" cy="34" rx="5.5" ry="2.2" fill="#166534"/>
+            <ellipse cx="62" cy="34" rx="5.5" ry="2.2" fill="#166534"/>
+            <ellipse cx="57" cy="29" rx="5" ry="2.2" fill="#22c55e"/>
+            <!-- شجرة -->
+            <rect x="76" y="36" width="1.8" height="8" fill="#78350f"/>
+            <circle cx="77" cy="33" r="5" fill="#15803d"/>
+            <circle cx="74" cy="35" r="3.2" fill="#166534"/>
+            <circle cx="80" cy="35" r="3.2" fill="#166534"/>
+          </svg>
+          <span class="lbl">مزرعة</span>
+        </div>
+
       </div>
       <div class="err" id="err1">الرجاء اختيار نوع العقار للمتابعة</div>
     </section>
 
-    <!-- ===== خطوة 2: التفاصيل ===== -->
+    <!-- ===== 2: المساحة ===== -->
     <section class="step" data-step="2">
+      <div class="q-title" id="areaTitle">ما هي المساحة المطلوبة؟</div>
+      <div class="q-sub" id="areaSub">حدد المساحة التقريبية</div>
+
+      <!-- خياران للشقة -->
+      <div id="areaOptions" class="area-opts" style="display:none">
+        <label class="area-opt">
+          <input type="radio" name="aptArea" value="تحت 150">
+          <span class="opt-box">تحت 150<small>متر مربع</small></span>
+        </label>
+        <label class="area-opt">
+          <input type="radio" name="aptArea" value="فوق 200">
+          <span class="opt-box">فوق 200<small>متر مربع</small></span>
+        </label>
+      </div>
+
+      <!-- حقل رقمي لبقية الأنواع -->
+      <div id="areaInputWrap" style="display:none">
+        <div class="field">
+          <label>المساحة (متر مربع)</label>
+          <input type="tel" id="areaInput" placeholder="مثال: 500" inputmode="numeric">
+        </div>
+      </div>
+
+      <div class="err" id="errArea">الرجاء تحديد المساحة للمتابعة</div>
+    </section>
+
+    <!-- ===== 3: الغرف والصالات ===== -->
+    <section class="step" data-step="3">
       <div class="q-title">حدد تفاصيل العقار</div>
       <div class="q-sub">اختر عدد الغرف والصالات ودورات المياه</div>
 
@@ -309,8 +581,8 @@
       <div class="err" id="err2">الرجاء تحديد عدد الغرف على الأقل</div>
     </section>
 
-    <!-- ===== خطوة 3: المدينة ===== -->
-    <section class="step" data-step="3">
+    <!-- ===== 4: المدينة ===== -->
+    <section class="step" data-step="4">
       <div class="q-title">في أي مدينة تبحث؟</div>
       <div class="q-sub">اختر المدينة لعرض الأحياء المتاحة</div>
       <select id="citySelect">
@@ -319,8 +591,8 @@
       <div class="err" id="err3">الرجاء اختيار المدينة</div>
     </section>
 
-    <!-- ===== خطوة 4: الأحياء ===== -->
-    <section class="step" data-step="4">
+    <!-- ===== 5: الأحياء ===== -->
+    <section class="step" data-step="5">
       <div class="q-title">اختر الأحياء المطلوبة</div>
       <div class="q-sub">يمكنك تحديد أكثر من حي</div>
       <div class="districts-head">
@@ -331,8 +603,8 @@
       <div class="err" id="err4">الرجاء اختيار حي واحد على الأقل</div>
     </section>
 
-    <!-- ===== خطوة 5: الاسم ===== -->
-    <section class="step" data-step="5">
+    <!-- ===== 6: الاسم ===== -->
+    <section class="step" data-step="6">
       <div class="q-title">ما اسمك الكريم؟</div>
       <div class="q-sub">سيتم التواصل معك بخصوص طلبك</div>
       <div class="field">
@@ -342,8 +614,8 @@
       <div class="err" id="err5">الرجاء كتابة الاسم (حرفان على الأقل)</div>
     </section>
 
-    <!-- ===== خطوة 6: الجوال ===== -->
-    <section class="step" data-step="6">
+    <!-- ===== 7: الجوال ===== -->
+    <section class="step" data-step="7">
       <div class="q-title">رقم الجوال</div>
       <div class="q-sub">أدخل رقمك للتواصل معك</div>
       <div class="field">
@@ -353,8 +625,8 @@
       <div class="err" id="err6">الرجاء إدخال رقم جوال صحيح يبدأ بـ 05</div>
     </section>
 
-    <!-- ===== خطوة 7: الشكر ===== -->
-    <section class="step" data-step="7">
+    <!-- ===== 8: الشكر ===== -->
+    <section class="step" data-step="8">
       <div class="thanks">
         <div class="tick">✓</div>
         <h2>شكراً لك 🌟</h2>
@@ -363,7 +635,6 @@
       </div>
     </section>
 
-    <!-- أزرار التنقل -->
     <div class="nav" id="nav">
       <button type="button" class="btn btn-ghost" id="prevBtn" style="display:none">السابق</button>
       <button type="button" class="btn btn-primary" id="nextBtn">التالي</button>
@@ -371,10 +642,9 @@
   </div>
 </div>
 
-<!-- ================= النجمة المخفية ================= -->
-<div class="secret-star" id="secretStar" title="">★</div>
+<div class="secret-star" id="secretStar">★</div>
 
-<!-- ================= مودال تسجيل الدخول ================= -->
+<!-- مودال تسجيل الدخول -->
 <div class="overlay" id="loginOverlay">
   <div class="modal">
     <h3>🔐 دخول الإدارة</h3>
@@ -395,7 +665,7 @@
   </div>
 </div>
 
-<!-- ================= مودال لوحة الإدارة ================= -->
+<!-- مودال لوحة الإدارة -->
 <div class="overlay" id="adminOverlay">
   <div class="modal admin-modal">
     <div class="admin-top">
@@ -416,9 +686,7 @@
 </div>
 
 <script>
-/* =========================================================
-   1) بيانات المدن والأحياء
-   ========================================================= */
+/* ============ المدن والأحياء ============ */
 const CITIES = {
   "الرياض": ["العليا","الملقا","حطين","الياسمين","النرجس","القيروان","الصحافة","الوادي","الربوة","قرطبة","المونسية","الشفا","العزيزية","النسيم","الروضة","السلام","المنار","الخالدية","السويدي","عرقة","المروج","النخيل","الورود","الملز","الفيصلية","المرسلات","الرحمانية","غرناطة","الخليج","إشبيلية","الجزيرة","المعذر","السليمانية","أم الحمام","ظهرة لبن","طويق","الحائر","بدر","الشرق","النهضة","القدس","الزهراء"],
   "جدة": ["الحمراء","الروضة","الشاطئ","الأندلس","السلامة","النعيم","البوادي","الزهراء","الصفا","المروة","الفيصلية","الرحاب","السامر","الياقوت","الريان","الواحة","أم السلم","الحمدانية","بريمان","أبحر الشمالية","أبحر الجنوبية","الشرقية","البلد","الهنداوية","الكندرة","الصحيفة","النزهة","الفيحاء","المحمدية","الحجاز","الخالدية","الرحمانية","قويزة","الشرفية","الجامعة","المنتزهات","السنابل"],
@@ -448,35 +716,25 @@ const CITIES = {
   "بيشة": ["الروضة","الفيصلية","العزيزية","الخالدية","النخيل","المطار"]
 };
 
-/* =========================================================
-   2) بيانات الدخول للإدارة  ← غيّرها من هنا
-   ========================================================= */
-const ADMIN_USER = "admin";
-const ADMIN_PASS = "123456";
+/* ============ بيانات الدخول ← غيّرها ============ */
+const ADMIN_USER = "Majed1417";
+const ADMIN_PASS = "Majed123*";
 
-/* =========================================================
-   3) إعدادات عامة
-   ========================================================= */
+/* ============ إعدادات ============ */
 const STORAGE_KEY = "aqar_requests_v1";
-const TOTAL_STEPS = 6;              // عدد الخطوات قبل شاشة الشكر
-const LAND_TYPES = ["أرض","أرض تجارية"]; // لا تحتاج غرف/صالات
+const TOTAL_STEPS = 7;
+const LAND_TYPES = ["أرض", "أرض تجارية"];   // لا تسأل عن الغرف
 
 const state = {
   type: "",
-  rooms: 0,
-  halls: 0,
-  baths: 0,
-  city: "",
-  districts: [],
-  name: "",
-  phone: ""
+  area: "",
+  rooms: 0, halls: 0, baths: 0,
+  city: "", districts: [],
+  name: "", phone: ""
 };
 
 let currentStep = 1;
 
-/* =========================================================
-   4) عناصر الصفحة
-   ========================================================= */
 const $ = (id) => document.getElementById(id);
 const steps = document.querySelectorAll(".step");
 const progressFill = $("progressFill");
@@ -486,9 +744,7 @@ const prevBtn = $("prevBtn");
 const nextBtn = $("nextBtn");
 const progressWrap = $("progressWrap");
 
-/* =========================================================
-   5) تعبئة قائمة المدن
-   ========================================================= */
+/* ============ قائمة المدن ============ */
 (function fillCities(){
   const sel = $("citySelect");
   Object.keys(CITIES).sort((a,b)=>a.localeCompare(b,"ar")).forEach(city=>{
@@ -498,11 +754,9 @@ const progressWrap = $("progressWrap");
   });
 })();
 
-/* =========================================================
-   6) التنقل بين الخطوات
-   ========================================================= */
+/* ============ التنقل ============ */
 function updateProgress(){
-  if(currentStep === 7){
+  if(currentStep === 8){
     progressWrap.style.display = "none";
     return;
   }
@@ -518,17 +772,15 @@ function goTo(step){
   steps.forEach(s => s.classList.toggle("active", Number(s.dataset.step) === step));
   document.querySelectorAll(".err").forEach(e => e.classList.remove("show"));
 
-  prevBtn.style.display = (step === 1 || step === 7) ? "none" : "block";
-  nextBtn.style.display = (step === 7) ? "none" : "block";
+  prevBtn.style.display = (step === 1 || step === 8) ? "none" : "block";
+  nextBtn.style.display = (step === 8) ? "none" : "block";
   nextBtn.textContent = (step === TOTAL_STEPS) ? "إرسال الطلب ✓" : "التالي";
 
   updateProgress();
   window.scrollTo({top:0, behavior:"smooth"});
 }
 
-/* =========================================================
-   7) خطوة 1 – نوع العقار
-   ========================================================= */
+/* ============ خطوة 1: نوع العقار ============ */
 $("typeGrid").addEventListener("click", (e)=>{
   const card = e.target.closest(".type-card");
   if(!card) return;
@@ -538,9 +790,44 @@ $("typeGrid").addEventListener("click", (e)=>{
   $("err1").classList.remove("show");
 });
 
-/* =========================================================
-   8) خطوة 2 – العدادات
-   ========================================================= */
+/* ============ خطوة 2: المساحة ============ */
+function configureAreaStep(){
+  const isApartment = (state.type === "شقة");
+  if(isApartment){
+    $("areaOptions").style.display = "grid";
+    $("areaInputWrap").style.display = "none";
+    $("areaTitle").textContent = "ما هي مساحة الشقة المطلوبة؟";
+    $("areaSub").textContent = "اختر النطاق التقريبي للمساحة";
+  }else{
+    $("areaOptions").style.display = "none";
+    $("areaInputWrap").style.display = "block";
+    $("areaTitle").textContent = "ما هي المساحة المطلوبة؟";
+    $("areaSub").textContent = "أدخل المساحة التقريبية بالأمتار المربعة";
+    $("areaInput").value = "";
+  }
+}
+
+function getAreaValue(){
+  if(state.type === "شقة"){
+    const c = document.querySelector('input[name="aptArea"]:checked');
+    return c ? c.value : "";
+  }
+  return $("areaInput").value.trim();
+}
+
+$("areaInput").addEventListener("input", (e)=>{
+  let v = e.target.value.replace(/[^\d]/g, "");
+  v = v.replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
+  if(v.length > 6) v = v.slice(0,6);
+  e.target.value = v;
+  if(v) $("errArea").classList.remove("show");
+});
+
+document.querySelectorAll('input[name="aptArea"]').forEach(r=>{
+  r.addEventListener("change", ()=> $("errArea").classList.remove("show"));
+});
+
+/* ============ خطوة 3: العدادات ============ */
 const counters = {
   rooms: { min:0, max:20, el:"roomsVal" },
   halls: { min:0, max:10, el:"hallsVal" },
@@ -572,9 +859,7 @@ function refreshStepperButtons(){
 }
 refreshStepperButtons();
 
-/* =========================================================
-   9) خطوة 3 و 4 – المدينة والأحياء
-   ========================================================= */
+/* ============ خطوة 4-5: المدينة والأحياء ============ */
 $("citySelect").addEventListener("change", (e)=>{
   state.city = e.target.value;
   state.districts = [];
@@ -637,9 +922,7 @@ $("selectAllBtn").addEventListener("click", ()=>{
   if(state.districts.length) $("err4").classList.remove("show");
 });
 
-/* =========================================================
-   10) خطوة 5 و 6 – الاسم والجوال
-   ========================================================= */
+/* ============ خطوة 6-7: الاسم والجوال ============ */
 $("nameInput").addEventListener("input", (e)=>{
   state.name = e.target.value.trim();
   if(state.name.length >= 2) $("err5").classList.remove("show");
@@ -647,7 +930,6 @@ $("nameInput").addEventListener("input", (e)=>{
 
 $("phoneInput").addEventListener("input", (e)=>{
   let v = e.target.value.replace(/[^\d]/g, "");
-  // تحويل الأرقام العربية إلى إنجليزية
   v = v.replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
   if(v.length > 10) v = v.slice(0,10);
   e.target.value = v;
@@ -655,69 +937,70 @@ $("phoneInput").addEventListener("input", (e)=>{
   if(/^05\d{8}$/.test(v)) $("err6").classList.remove("show");
 });
 
-/* =========================================================
-   11) زر التالي / السابق
-   ========================================================= */
+/* ============ زر التالي / السابق ============ */
 nextBtn.addEventListener("click", ()=>{
 
-  /* --- تحقق من كل خطوة --- */
   if(currentStep === 1){
     if(!state.type){ $("err1").classList.add("show"); return; }
-    // لو العقار أرض → تخطَّ خطوة الغرف
-    if(LAND_TYPES.includes(state.type)){
-      goTo(3);
-    }else{
-      goTo(2);
-    }
+    configureAreaStep();
+    goTo(2);
     return;
   }
 
   if(currentStep === 2){
-    if(state.rooms < 1){ $("err2").classList.add("show"); return; }
-    goTo(3); return;
+    const area = getAreaValue();
+    if(!area){ $("errArea").classList.add("show"); return; }
+    state.area = area;
+    if(LAND_TYPES.includes(state.type)) goTo(4);
+    else goTo(3);
+    return;
   }
 
   if(currentStep === 3){
-    if(!state.city){ $("err3").classList.add("show"); return; }
-    renderDistricts();
+    if(state.rooms < 1){ $("err2").classList.add("show"); return; }
     goTo(4); return;
   }
 
   if(currentStep === 4){
-    if(state.districts.length === 0){ $("err4").classList.add("show"); return; }
+    if(!state.city){ $("err3").classList.add("show"); return; }
+    renderDistricts();
     goTo(5); return;
   }
 
   if(currentStep === 5){
-    state.name = $("nameInput").value.trim();
-    if(state.name.length < 2){ $("err5").classList.add("show"); return; }
+    if(state.districts.length === 0){ $("err4").classList.add("show"); return; }
     goTo(6); return;
   }
 
   if(currentStep === 6){
+    state.name = $("nameInput").value.trim();
+    if(state.name.length < 2){ $("err5").classList.add("show"); return; }
+    goTo(7); return;
+  }
+
+  if(currentStep === 7){
     state.phone = $("phoneInput").value.trim();
     if(!/^05\d{8}$/.test(state.phone)){ $("err6").classList.add("show"); return; }
     saveRequest();
     showSummary();
-    goTo(7);
+    goTo(8);
     return;
   }
 });
 
 prevBtn.addEventListener("click", ()=>{
-  if(currentStep === 3 && LAND_TYPES.includes(state.type)){
-    goTo(1); return;
+  if(currentStep === 4 && LAND_TYPES.includes(state.type)){
+    goTo(2); return;
   }
   if(currentStep > 1) goTo(currentStep - 1);
 });
 
-/* =========================================================
-   12) الحفظ في المتصفح
-   ========================================================= */
+/* ============ الحفظ ============ */
 function saveRequest(){
   const req = {
     id: Date.now() + "_" + Math.random().toString(36).slice(2,7),
     type: state.type,
+    area: state.area + " م²",
     rooms: LAND_TYPES.includes(state.type) ? "-" : state.rooms,
     halls: LAND_TYPES.includes(state.type) ? "-" : state.halls,
     baths: LAND_TYPES.includes(state.type) ? "-" : state.baths,
@@ -733,18 +1016,16 @@ function saveRequest(){
 }
 
 function getRequests(){
-  try{
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-  }catch(e){ return []; }
+  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+  catch(e){ return []; }
 }
 
-/* =========================================================
-   13) ملخص الطلب في شاشة الشكر
-   ========================================================= */
+/* ============ ملخص الطلب ============ */
 function showSummary(){
   const isLand = LAND_TYPES.includes(state.type);
   const rows = [
     ["نوع العقار", state.type],
+    ["المساحة", state.area + " م²"],
     ...(isLand ? [] : [
       ["عدد الغرف", state.rooms],
       ["عدد الصالات", state.halls],
@@ -760,9 +1041,7 @@ function showSummary(){
     .join("");
 }
 
-/* =========================================================
-   14) النجمة المخفية + تسجيل الدخول
-   ========================================================= */
+/* ============ النجمة المخفية والدخول ============ */
 $("secretStar").addEventListener("click", ()=>{
   $("adminUser").value = "";
   $("adminPass").value = "";
@@ -792,14 +1071,11 @@ function doLogin(){
   }
 }
 
-/* =========================================================
-   15) لوحة الإدارة
-   ========================================================= */
+/* ============ لوحة الإدارة ============ */
 function renderAdmin(){
   const all = getRequests();
   const list = $("reqList");
 
-  /* إحصائيات */
   $("statTotal").textContent = all.length;
   const today = new Date().toDateString();
   $("statToday").textContent = all.filter(r => new Date(r.date).toDateString() === today).length;
@@ -809,7 +1085,6 @@ function renderAdmin(){
   const topCity = Object.keys(cityCount).sort((a,b)=>cityCount[b]-cityCount[a])[0];
   $("statCity").textContent = topCity || "-";
 
-  /* القائمة */
   if(all.length === 0){
     list.innerHTML = '<div class="no-data">لا توجد طلبات حتى الآن</div>';
     return;
@@ -828,6 +1103,7 @@ function renderAdmin(){
         </div>
         <div class="rc-rows">
           <span>🏠 النوع: <b>${escapeHtml(r.type)}</b></span>
+          <span>📐 المساحة: <b>${escapeHtml(r.area)}</b></span>
           <span>📍 المدينة: <b>${escapeHtml(r.city)}</b></span>
           ${isLand ? "" : `
             <span>🛏️ غرف: <b>${r.rooms}</b></span>
@@ -843,7 +1119,6 @@ function renderAdmin(){
     `;
   }).join("");
 
-  /* حذف طلب */
   list.querySelectorAll(".del-btn").forEach(btn=>{
     btn.addEventListener("click", ()=>{
       if(!confirm("هل تريد حذف هذا الطلب؟")) return;
@@ -861,20 +1136,18 @@ function escapeHtml(str){
   }[m]));
 }
 
-/* خروج */
 $("logoutBtn").addEventListener("click", ()=>{
   $("adminOverlay").classList.remove("show");
 });
 
-/* تصدير CSV */
 $("exportBtn").addEventListener("click", ()=>{
   const all = getRequests();
   if(all.length === 0){ alert("لا توجد طلبات للتصدير"); return; }
 
-  const head = ["التاريخ","الاسم","الجوال","نوع العقار","الغرف","الصالات","دورات المياه","المدينة","الأحياء"];
+  const head = ["التاريخ","الاسم","الجوال","نوع العقار","المساحة","الغرف","الصالات","دورات المياه","المدينة","الأحياء"];
   const rows = all.map(r=>[
     new Date(r.date).toLocaleString("ar-SA"),
-    r.name, r.phone, r.type, r.rooms, r.halls, r.baths, r.city,
+    r.name, r.phone, r.type, r.area, r.rooms, r.halls, r.baths, r.city,
     r.districts.join(" | ")
   ]);
 
@@ -890,7 +1163,6 @@ $("exportBtn").addEventListener("click", ()=>{
   URL.revokeObjectURL(a.href);
 });
 
-/* مسح الكل */
 $("clearBtn").addEventListener("click", ()=>{
   if(getRequests().length === 0){ alert("لا توجد طلبات"); return; }
   if(!confirm("⚠️ سيتم حذف جميع الطلبات نهائياً. متأكد؟")) return;
@@ -898,14 +1170,11 @@ $("clearBtn").addEventListener("click", ()=>{
   renderAdmin();
 });
 
-/* إغلاق لوحة الإدارة بالضغط خارجها */
 $("adminOverlay").addEventListener("click", (e)=>{
   if(e.target === $("adminOverlay")) $("adminOverlay").classList.remove("show");
 });
 
-/* =========================================================
-   16) تشغيل
-   ========================================================= */
+/* ============ تشغيل ============ */
 goTo(1);
 </script>
 </body>
